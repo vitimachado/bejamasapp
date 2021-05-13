@@ -35,6 +35,26 @@ const home = (state: IFilter = INITIAL_STATE, action) => {
         ...state,
         filterPrice: action.payload
       }
+    case types.CLEAR_FILTERS:
+      return {
+        ...state,
+        filterCategory: [
+          { title: constants.CATEGORY_PEOPLE, status: false },
+          { title: constants.CATEGORY_PREMIUM, status: false },
+          { title: constants.CATEGORY_PETS, status: false },
+          { title: constants.CATEGORY_FOOD, status: false },
+          { title: constants.CATEGORY_LANDMARKS, status: false },
+          { title: constants.CATEGORY_CITIES, status: false },
+          { title: constants.CATEGORY_NATURE, status: false },
+        ],
+        filterPrice: [
+          { title: constants.PRICE_LOWER_20, status: false },
+          { title: constants.PRICE_BETWEEN_20_100, status: false },
+          { title: constants.PRICE_BETWEEN_100_200, status: false },
+          { title: constants.PRICE_MORE_200, status: false },
+        ]
+      }
+
 
     default:
       return { ...state }

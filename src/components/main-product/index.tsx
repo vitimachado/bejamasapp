@@ -7,7 +7,8 @@ import {
   Title,
   Divider,
   ImgMsg,
-  WrapperButton,} from './style'
+  WrapperButton,
+  MainImage,} from './style'
 import { IProduct } from '../../shared/models/product';
 import DetailsProduct from './details';
 import AppButton from '../button';
@@ -35,18 +36,18 @@ const MainProduct: React.FC<IProduct.IProps> = (props): JSX.Element => {
             ADD TO CART
           </AppButton>
         </WrapperButton>
+        <MainImage>
+          <Image
+            src={props?.image?.src}
+            alt={props?.image?.alt}
+            width={200}
+            height={60}
+            layout="responsive"
+            objectFit="cover"
+          />
+          <ImgMsg>Photo of the Day</ImgMsg>
+      </MainImage>
       </ContainerTitle>
-      <div>
-        <Image
-          src={props?.image?.src}
-          alt={props?.image?.alt}
-          width={200}
-          height={60}
-          layout="responsive"
-          objectFit="cover"
-        />
-        <ImgMsg>Photo of the Day</ImgMsg>
-      </div>
       <DetailsProduct {...props} />
       <Divider />
     </Container>

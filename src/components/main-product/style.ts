@@ -32,6 +32,7 @@ export const ContainerTitle = styled.div`
   align-items: center;
   flex-direction: row;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 `
 
 export const Title = styled.div`
@@ -50,14 +51,14 @@ export const Divider = styled.div`
   margin: 10px 0px;
 `
 
-export const ImgMsg = styled.div`
+export const ImgMsg = styled.span`
   height: auto;
   width: max-content;
   border-radius: 0px;
   border: none;
   padding: 6px 30px;
-  position: relative;
-  top: -37px;
+  position: absolute;
+  bottom: 0px;
 
   font-size: 15px;
   font-style: normal;
@@ -71,4 +72,20 @@ export const ImgMsg = styled.div`
 `
 
 export const WrapperButton = styled.div`
+  @media(max-width: 650px) {
+    order: 3;
+    width: -webkit-fill-available;
+  }
+`
+export const MainImage = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+
+  @media(max-width: 650px) {
+    > div {
+      height: 350px;
+    }
+  }
 `

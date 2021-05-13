@@ -1,11 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { Container, ContainerTitle, WrapperContainer, WrapperProducts, WrapperMenu } from './style'
+import {
+  Container,
+  ContainerTitle,
+  WrapperContainer,
+  WrapperProducts,
+  WrapperMenu,
+  WrapperFilter,
+  WrapperSortBar,
+  ButtonFilterBar,
+  ButtonFilter,
+  TitleFilter,
+  WrapperFilterModal } from './style'
+import FilterSVG from '../../assets/svgs/filter.svg';
+import CloseSVG from '../../assets/svgs/close.svg';
 import FilteBar from '../filterbar';
 import { IReducers } from '../../store/interfaces/reducers';
 import { IFilter } from '../../store/interfaces/home';
 import BreadCrumb from '../breadcrumb'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Product from '../product';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import * as constants from "../../shared/constants"
@@ -13,13 +26,22 @@ import PaginationBar from '../paginationbar';
 import { IPagination } from '../paginationbar/paginationbar';
 import SortBar from '../sortbar';
 import { ISort } from '../sortbar/sort';
+import Modal from '../modal';
+import AppButton from '../button';
+import { setClearProductCart } from '../../store/actions/cart';
+import { IFilterRef } from '../filterbar/filterbar';
+import { clearFilters } from '../../store/actions/home';
 
 
 const ProductsList: React.FC<AppProps> = (props): JSX.Element => {
 
   const [page, setPage] = useState(1);
   const [ascFilter, setAscFilter] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const [typeFilter, setTypeFilter] = useState("price");
+  const childRef = useRef();
+  const dispatch = useDispatch();
+
   const { products } = props;
   const { filterCategory, filterPrice } =
           useSelector((state: IReducers) => state.home) as IFilter;
@@ -88,6 +110,20 @@ const ProductsList: React.FC<AppProps> = (props): JSX.Element => {
     setTypeFilter(type);
   }
 
+  const toggleOpenModal = () => {
+    setOpenModal(!openModal);
+  }
+
+  const clearFilter = () => {
+    dispatch(clearFilters());
+  }
+
+  const saveFilter = () => {
+    const refFunctions = childRef?.current as IFilterRef;
+    refFunctions.saveFilters();
+    setOpenModal(false);
+  }
+
   const paginationProps = {
     itensLength: productsFilter?.length,
     limit,
@@ -112,10 +148,20 @@ const ProductsList: React.FC<AppProps> = (props): JSX.Element => {
     <Container>
       <WrapperMenu>
         <BreadCrumb />
-        <SortBar {...sortProps}/>
+        <WrapperSortBar>
+          <SortBar {...sortProps}/>
+        </WrapperSortBar>
+        <ButtonFilterBar
+            aria-label="filter button"
+            onClick={toggleOpenModal}>
+          <FilterSVG />
+        </ButtonFilterBar>
       </WrapperMenu>
       <WrapperContainer>
-        <FilteBar />
+        <WrapperFilter>
+          <TitleFilter>Category</TitleFilter>
+          <FilteBar />
+        </WrapperFilter>
         <WrapperProducts>
           {
             productsSliced?.length > 0 ? productsSliced
@@ -124,6 +170,35 @@ const ProductsList: React.FC<AppProps> = (props): JSX.Element => {
           <PaginationBar  {...paginationProps}/>
         </WrapperProducts>
       </WrapperContainer>
+      <Modal
+        open={openModal}
+        onClickBackground={toggleOpenModal}
+        top="100px"
+        containerColor="primary">
+        <WrapperFilterModal>
+          <TitleFilter>Filter</TitleFilter>
+          <ButtonFilter
+            aria-label="close button"
+            onClick={toggleOpenModal}>
+            <CloseSVG />
+          </ButtonFilter>
+        </WrapperFilterModal>
+        <FilteBar not_automatic={true} ref={childRef} />
+        <WrapperFilterModal>
+          <AppButton
+            ariaLabel="clear button"
+            color="primary"
+            onClick={clearFilter}
+            disabled={ products?.length == 0 ? true : false }>
+            CLEAR
+          </AppButton>
+          <AppButton
+            ariaLabel="save button"
+            onClick={saveFilter}>
+            SAVE
+          </AppButton>
+        </WrapperFilterModal>
+      </Modal>
     </Container>
   )
 }

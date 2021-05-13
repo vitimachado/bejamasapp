@@ -13,9 +13,15 @@ export const WrapperImgs = styled.div`
 
 export const WrapperContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   > div {
+    margin-bottom: 20px;
     width: 50%;
+
+    @media(max-width: 650px) {
+      width: 100%;
+    }
   }
 `
 
@@ -46,6 +52,10 @@ export const WrapperTextLabel = styled.div`
     color: ${props => props.theme.colors.secondary};
     margin-bottom: 15px;
   }
+
+  @media(max-width: 650px) {
+    align-items: start;
+  }
 `
 
 export const WrapperText = styled.div`
@@ -57,13 +67,17 @@ export const WrapperText = styled.div`
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
-    color: ${props => props.theme.colors.secondary};
+  color: ${props => props.theme.colors.secondary};
 `
 
 export const WrapperOtherDetails = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media(max-width: 650px) {
+    align-items: start;
+  }
 `
 
 export const WrappeSizeDetails = styled.div`

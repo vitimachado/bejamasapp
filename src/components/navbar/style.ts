@@ -19,6 +19,10 @@ export const WrapperNav = styled.div`
     top: 0px;
     z-index: 2;
     background: ${props => props.theme.colors.background};
+
+    @media(max-width: 650px) {
+      padding: 10px 0px;
+    }
 `
 
 export const Row = styled.div`
@@ -29,6 +33,10 @@ export const Row = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+
+    @media(max-width: 650px) {
+      padding: 0px 30px;
+    }
 `
 
 export const Img = styled.img`

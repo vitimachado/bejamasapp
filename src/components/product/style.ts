@@ -9,6 +9,10 @@ export const Container = styled.div`
   background: ${props => props.theme.colors.background};
   position: relative;
   margin: 0px 20px 40px 20px;
+
+  @media(max-width: 650px) {
+    width: 90%;
+  }
 `
 
 export const Img = styled.img`
@@ -28,6 +32,7 @@ export const ContainerTitle = styled.div`
 
 export const ImgMsg = styled.div`
   position: absolute;
+  top: 0px;
   height: auto;
   width: max-content;
   border-radius: 0px;
@@ -46,9 +51,13 @@ export const ImgMsg = styled.div`
   z-index: 1;
 `
 
+export const WrapperImage = styled.div`
+  position: relative;
+`
+
 export const WrapperButton = styled.div`
   position: absolute;
-  top: 243px;
+  bottom: 0px;
   width: -webkit-fill-available;
 `
 
