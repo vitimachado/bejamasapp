@@ -43,12 +43,13 @@ const ShoppingCart: React.FC = () => {
           {
             products?.length > 0 ?
               products?.map(product =>
-                <WrapperProduct>
+                <WrapperProduct key={product?.name}>
                   <WrapperDetails>
                     <div>{product?.name}</div>
                     <span>${product?.price}</span>
                   </WrapperDetails>
                   <Image
+                    key={product?.image?.src}
                     src={product?.image?.src}
                     alt={product?.image?.alt}
                     width={200}
