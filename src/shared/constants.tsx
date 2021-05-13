@@ -1,0 +1,12 @@
+export const CATEGORY_PEOPLE = "People"
+export const CATEGORY_PREMIUM = "Premium"
+export const CATEGORY_PETS = "Pets"
+export const CATEGORY_FOOD = "Food"
+export const CATEGORY_LANDMARKS = "Landmarks"
+export const CATEGORY_CITIES = "Cities"
+export const CATEGORY_NATURE = "Nature"
+
+export const PRICE_LOWER_20 = "Lower than $20"
+export const PRICE_BETWEEN_20_100 = "$20 - $100"
+export const PRICE_BETWEEN_100_200 = "$100 - $200"
+export const PRICE_MORE_200 = "More than $200"
